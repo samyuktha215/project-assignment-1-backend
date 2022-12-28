@@ -29,8 +29,7 @@ public class ProductService
         return db.insertProductAndProps(prod,category);
 
     }
-    public int updateProduct(int id,Product prod){
-        return db.updateProductMeta(id, prod);
+    public int updateProduct(int id,Product prod){return db.updateProductMeta(id, prod);
     }
     public int deleteProduct(int id){
         return db.deleteProduct(id);

@@ -20,9 +20,9 @@ public class ProductController
     List<Product>productList =productService.getProducts();
    return ResponseEntity.ok(productList);
 }
-@GetMapping("/products/category")
-    public ResponseEntity<List<Product>> getProducts(String category){
-    List<Product>productList=productService.getProducts(category);
+@GetMapping("/products/hats")
+    public ResponseEntity<List<Product>> getProducts(String hats){
+    List<Product>productList=productService.getProducts(hats);
     return  ResponseEntity.ok(productList);
 }
 @GetMapping("/products/{id}")
@@ -30,12 +30,19 @@ public class ProductController
     List<Product>productList=productService.getProducts();
     return ResponseEntity.ok(productList);
 }
-@PostMapping("/products/hats")
+@PostMapping("/products/jackets")
     public ResponseEntity<Product> postProductAndProps(@RequestBody Product product){
     return new ResponseEntity<>( product,HttpStatus.CREATED);
 }
+@DeleteMapping("/products/{id}")
+    public ResponseEntity<Object> deleteProduct(@PathVariable("id") Integer id)
+    {
+        if (productService.deleteProduct(id) >= 0)
+            return ResponseEntity.ok().build();
+        return ResponseEntity.internalServerError().build();
+    }
 @PutMapping("/products/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable("id") int id, @RequestBody Product product) {
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") Integer id, @RequestBody Product product) {
     int res = productService.updateProduct(id, product);
     switch (res) {
         case 0:
@@ -45,6 +52,10 @@ public class ProductController
         default:
             return ResponseEntity.internalServerError().body("Server error, probably");
     }
+
+
+
+
 
 
 }
