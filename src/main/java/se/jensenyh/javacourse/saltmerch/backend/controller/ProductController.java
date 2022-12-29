@@ -10,7 +10,7 @@ import se.jensenyh.javacourse.saltmerch.backend.service.ProductService;
 import java.util.List;
 
 @RestController
-
+@CrossOrigin(origins = "http://localhost:3010")
 public class ProductController
 {
 @Autowired
@@ -21,13 +21,13 @@ public class ProductController
    return ResponseEntity.ok(productList);
 }
 @GetMapping("/products/hats")
-    public ResponseEntity<List<Product>> getProducts(String hats){
-    List<Product>productList=productService.getProducts(hats);
-    return  ResponseEntity.ok(productList);
+    public ResponseEntity<List<Product>> getProducts(String hats) {
+    List<Product> productList = productService.getProducts(hats);
+    return ResponseEntity.ok(productList);
 }
 @GetMapping("/products/{id}")
-    public ResponseEntity<List<Product>> getProductById(@PathVariable("id") int id){
-    List<Product>productList=productService.getProducts();
+    public ResponseEntity<List<Product>> getProductById(@PathVariable("id") String id){
+    List<Product>productList=productService.getProductsOffCategory(id);
     return ResponseEntity.ok(productList);
 }
 @PostMapping("/products/jackets")
