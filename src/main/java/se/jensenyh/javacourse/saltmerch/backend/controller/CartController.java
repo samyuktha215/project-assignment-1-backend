@@ -1,11 +1,39 @@
 package se.jensenyh.javacourse.saltmerch.backend.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import se.jensenyh.javacourse.saltmerch.backend.model.CartItem;
+import se.jensenyh.javacourse.saltmerch.backend.service.CartService;
 
-@RequestMapping("/api/v1")
+import java.util.List;
+
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3010")
 public class CartController
 {
+    @Autowired
+    CartService cartService;
+    @GetMapping ("/carts/{id}")
+    public ResponseEntity<List<CartItem>> getAllCartItems(@PathVariable("id") Integer id){
+        List<CartItem>cartItems=cartService.getALLItems();
+        return  ResponseEntity.ok(cartItems);
+    }
+    @PatchMapping("/carts/{id}")
+    public ResponseEntity<CartItem> addItem(HttpServletRequest request,@RequestBody CartItem body){
+      String action= request.getParameter("action");
+      boolean action="add"
+      return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
+    }
+
+
+
+
+
+
+
     
 }
