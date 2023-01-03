@@ -15,7 +15,10 @@ public class CartService
     public List<CartItem> getALLItems(){
         return db.selectAllItems();
     }
-    public int addItem(CartItem item){
+    public Integer addItem(CartItem item){
+        {
+
+        }
         return db.insertOrIncrementItem(item);
     }
     public int deleteItem(CartItem item){

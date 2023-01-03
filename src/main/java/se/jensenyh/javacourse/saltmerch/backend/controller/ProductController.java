@@ -28,11 +28,7 @@ public class ProductController
     List<Product>productList=productService.getProductsOfCategory("hats");
     return  ResponseEntity.ok(productList);
 }
-@GetMapping("products/category")
-    public ResponseEntity getProductsOfCategory(HttpServletRequest request,@RequestBody Product body) {
-        String category=request.getParameter("category");
-        return  new ResponseEntity(body,HttpStatus.FOUND);
-    }
+
 @GetMapping("/products/{id}")
     public Object getProductById(@PathVariable("id") Integer id){
     return productService.getEntireProduct(id);
@@ -66,7 +62,8 @@ public ResponseEntity<Integer> restockSize(HttpServletRequest request){
    String color=request.getParameter("color");
    Integer quantity=request.getContentLength();
    return new ResponseEntity<>(HttpStatus.OK);
-}@PostMapping("/products/{id}/variants")
+}
+@PostMapping("/products/{id}/variants")
     public ResponseEntity<ColorVariant> addVariant(HttpServletRequest req,@RequestBody ColorVariant reqBody) {
     return new ResponseEntity<>(reqBody,HttpStatus.valueOf(201));
 }

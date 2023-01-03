@@ -1,8 +1,6 @@
 package se.jensenyh.javacourse.saltmerch.backend.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.jensenyh.javacourse.saltmerch.backend.model.CartItem;
@@ -22,12 +20,14 @@ public class CartController
         List<CartItem>cartItems=cartService.getALLItems();
         return  ResponseEntity.ok(cartItems);
     }
-    @PatchMapping("/carts/{id}")
-    public ResponseEntity<CartItem> addItem(HttpServletRequest request,@RequestBody CartItem body){
-      String action= request.getParameter("action");
-      boolean action="add"
-      return new ResponseEntity<>(body, HttpStatus.ACCEPTED);
-    }
+   //* @PatchMapping("/carts/{id}")
+   // public Object addItem(@RequestParam("action") CartItem item){
+      //  boolean action="add".equals(item);
+      //  if(action){
+       // return cartService.addItem(item);
+       // }
+        //return null;//
+   // }
 
 
 
