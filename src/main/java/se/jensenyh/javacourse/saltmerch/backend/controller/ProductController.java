@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 import se.jensenyh.javacourse.saltmerch.backend.model.ColorVariant;
 import se.jensenyh.javacourse.saltmerch.backend.model.Product;
@@ -21,22 +20,40 @@ public class ProductController
 @GetMapping("/products")
     public  ResponseEntity<List<Product>> getProducts(){
     List<Product>productList =productService.getProducts();
-   return ResponseEntity.ok(productList);
+    return ResponseEntity.ok(productList);
 }
 @GetMapping("products/hats")
-    public ResponseEntity getProductsOfCategory(String hats) {
+    public ResponseEntity getHats() {
     List<Product>productList=productService.getProductsOfCategory("hats");
     return  ResponseEntity.ok(productList);
 }
 
+@GetMapping("products/jackets")
+    public ResponseEntity getJackets() {
+    List<Product>productList=productService.getProductsOfCategory("jackets");
+    return  ResponseEntity.ok(productList);
+}
+@GetMapping("products/bags")
+    public ResponseEntity getBags() {
+    List<Product> productList = productService.getProductsOfCategory("bags");
+    return ResponseEntity.ok(productList);
+}
+@GetMapping("products/tshirts")
+    public ResponseEntity getTshirts() {
+    List<Product>productList=productService.getProductsOfCategory("tshirts");
+    return  ResponseEntity.ok(productList);
+}
+
 @GetMapping("/products/{id}")
-    public Object getProductById(@PathVariable("id") Integer id){
-    return productService.getEntireProduct(id);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id){
+    Product product= productService.getEntireProduct(id);
+    return ResponseEntity.ok(product);
 }
 @PostMapping("/products/jackets")
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
     return new ResponseEntity<>( product,HttpStatus.CREATED);
 }
+
 @DeleteMapping("/products/{id}")
     public ResponseEntity<Integer> deleteProduct(@PathVariable("id") Integer id)
     {
@@ -57,15 +74,20 @@ public class ProductController
     }
 }
 @PutMapping("/products/{id}/variants/stock")
-public ResponseEntity<Integer> restockSize(HttpServletRequest request){
-   String size=request.getParameter("size");
-   String color=request.getParameter("color");
-   Integer quantity=request.getContentLength();
+   public ResponseEntity<Integer> restockSize(HttpServletRequest request){
+     String size=request.getParameter("size");
+     String color=request.getParameter("color");
+     Integer quantity=request.getContentLength();
    return new ResponseEntity<>(HttpStatus.OK);
 }
 @PostMapping("/products/{id}/variants")
     public ResponseEntity<ColorVariant> addVariant(HttpServletRequest req,@RequestBody ColorVariant reqBody) {
     return new ResponseEntity<>(reqBody,HttpStatus.valueOf(201));
+}
+@DeleteMapping("/products/{productId}/variants")
+    public ResponseEntity<Integer> deleteVariant(HttpServletRequest request){
+    String color=request.getParameter("color");
+    return new ResponseEntity<>(HttpStatus.OK);
 }
 }
 

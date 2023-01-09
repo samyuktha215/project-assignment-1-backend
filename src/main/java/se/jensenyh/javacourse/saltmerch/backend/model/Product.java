@@ -3,6 +3,7 @@ package se.jensenyh.javacourse.saltmerch.backend.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Serializable
@@ -23,6 +24,7 @@ public class Product implements Serializable
     @JsonProperty public List<ColorVariant> colorVariants;
 
     public Product() {
+        colorVariants = new ArrayList<>();
     }
 
     public Product(int id, String category, String title, String description, String previewImage) {
@@ -31,6 +33,7 @@ public class Product implements Serializable
         this.title = title;
         this.description = description;
         this.previewImage = previewImage;
+        colorVariants = new ArrayList<>();
     }
 
     public Product(int id, String category, String title, String description, List<ColorVariant> colorVariants) {

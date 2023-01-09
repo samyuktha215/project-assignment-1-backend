@@ -11,29 +11,34 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3010")
-public class CartController
-{
+public class CartController {
     @Autowired
     CartService cartService;
-    @GetMapping ("/carts/{id}")
-    public ResponseEntity<List<CartItem>> getAllCartItems(@PathVariable("id") Integer id){
-        List<CartItem>cartItems=cartService.getALLItems();
-        return  ResponseEntity.ok(cartItems);
+
+    @GetMapping("/carts/{id}")
+    public ResponseEntity<List<CartItem>> getAllCartItems(@PathVariable("id") Integer id) {
+        List<CartItem> cartItems = cartService.getALLItems();
+        return ResponseEntity.ok(cartItems);
     }
-   //* @PatchMapping("/carts/{id}")
-   // public Object addItem(@RequestParam("action") CartItem item){
-      //  boolean action="add".equals(item);
-      //  if(action){
-       // return cartService.addItem(item);
-       // }
-        //return null;//
-   // }
 
+    @PatchMapping("/carts/{id}")
+    public Object addOrRemoveItem(@RequestParam("action") String action,
+                                  @RequestBody CartItem item) {
 
+        if ("add".equals(action)) {
+            return cartService.addItem(item);
+        } else if ("remove".equals(action)) {
+            return cartService.removeItem(item);
+        }
+        return null;
+    }
 
+    @DeleteMapping("/carts/{id}")
+    public Object deleteCartItems(@RequestParam("buyout") String buyout,@RequestBody CartItem item) {
+        if ("true".equals(buyout)) {
+            return cartService.deleteAllItems();
+        }
+        return null;
+    }
 
-
-
-
-    
 }

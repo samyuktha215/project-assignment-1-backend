@@ -16,13 +16,13 @@ public class CartService
         return db.selectAllItems();
     }
     public Integer addItem(CartItem item){
-        {
-
-        }
         return db.insertOrIncrementItem(item);
     }
-    public int deleteItem(CartItem item){
+    public Integer removeItem(CartItem item){
         return db.deleteOrDecrementItem(item);
+    }
+    public  List<CartItem>deleteAllItems(){
+        return db.selectAllItems();
     }
 
 }
