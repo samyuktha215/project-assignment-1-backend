@@ -21,8 +21,8 @@ public class CartService
     public Integer removeItem(CartItem item){
         return db.deleteOrDecrementItem(item);
     }
-    public  List<CartItem>deleteAllItems(){
-        return db.selectAllItems();
+    public void deleteAllItems(boolean restock){
+        db.deleteAllItems(restock);
     }
 
 }

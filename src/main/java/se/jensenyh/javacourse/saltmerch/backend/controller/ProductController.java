@@ -18,51 +18,67 @@ public class ProductController
 @Autowired
     ProductService productService;
 @GetMapping("/products")
-    public  ResponseEntity<List<Product>> getProducts(){
+public  ResponseEntity<List<Product>> getProducts(){
     List<Product>productList =productService.getProducts();
     return ResponseEntity.ok(productList);
 }
 @GetMapping("products/hats")
-    public ResponseEntity getHats() {
+public ResponseEntity getHats() {
     List<Product>productList=productService.getProductsOfCategory("hats");
     return  ResponseEntity.ok(productList);
 }
 
 @GetMapping("products/jackets")
-    public ResponseEntity getJackets() {
+public ResponseEntity getJackets() {
     List<Product>productList=productService.getProductsOfCategory("jackets");
     return  ResponseEntity.ok(productList);
 }
 @GetMapping("products/bags")
-    public ResponseEntity getBags() {
+public ResponseEntity getBags() {
     List<Product> productList = productService.getProductsOfCategory("bags");
     return ResponseEntity.ok(productList);
 }
 @GetMapping("products/tshirts")
-    public ResponseEntity getTshirts() {
+public ResponseEntity getTshirts() {
     List<Product>productList=productService.getProductsOfCategory("tshirts");
     return  ResponseEntity.ok(productList);
 }
 
 @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id){
+public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id){
     Product product= productService.getEntireProduct(id);
     return ResponseEntity.ok(product);
 }
 @PostMapping("/products/jackets")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
+public ResponseEntity<Product> addJacket(@RequestBody Product product){
+    productService.addProductAndProps(product, "jackets");
     return new ResponseEntity<>( product,HttpStatus.CREATED);
 }
 
+@PostMapping("/products/hats")
+public ResponseEntity<Product> addHat(@RequestBody Product product){
+    productService.addProductAndProps(product, "hats");
+    return new ResponseEntity<>( product,HttpStatus.CREATED);
+}
+@PostMapping("/products/bags")
+public ResponseEntity<Product> addBag(@RequestBody Product product) {
+    productService.addProductAndProps(product, "bags");
+    return new ResponseEntity<>(product, HttpStatus.CREATED);
+}
+@PostMapping("/products/tshirts")
+public ResponseEntity<Product> addTshirts(@RequestBody Product product) {
+    productService.addProductAndProps(product, "tshirts");
+    return new ResponseEntity<>(product, HttpStatus.CREATED);
+}
 @DeleteMapping("/products/{id}")
-    public ResponseEntity<Integer> deleteProduct(@PathVariable("id") Integer id)
+public ResponseEntity<Integer> deleteProduct(@PathVariable("id") Integer id)
     {
         if (productService.deleteProduct(id) >= 0)
             return ResponseEntity.ok().build();
         return ResponseEntity.internalServerError().build();
     }
 @PutMapping("/products/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") Integer id, @RequestBody Product product) {
+public ResponseEntity<Object> updateProduct(@PathVariable("id") Integer id, @RequestBody Product product) {
     int res = productService.updateProduct(id, product);
     switch (res) {
         case 0:
@@ -74,18 +90,18 @@ public class ProductController
     }
 }
 @PutMapping("/products/{id}/variants/stock")
-   public ResponseEntity<Integer> restockSize(HttpServletRequest request){
+public ResponseEntity<Integer> restockSize(HttpServletRequest request){
      String size=request.getParameter("size");
      String color=request.getParameter("color");
      Integer quantity=request.getContentLength();
    return new ResponseEntity<>(HttpStatus.OK);
 }
 @PostMapping("/products/{id}/variants")
-    public ResponseEntity<ColorVariant> addVariant(HttpServletRequest req,@RequestBody ColorVariant reqBody) {
+public ResponseEntity<ColorVariant> addVariant(HttpServletRequest req,@RequestBody ColorVariant reqBody) {
     return new ResponseEntity<>(reqBody,HttpStatus.valueOf(201));
 }
 @DeleteMapping("/products/{productId}/variants")
-    public ResponseEntity<Integer> deleteVariant(HttpServletRequest request){
+public ResponseEntity<Integer> deleteVariant(HttpServletRequest request){
     String color=request.getParameter("color");
     return new ResponseEntity<>(HttpStatus.OK);
 }

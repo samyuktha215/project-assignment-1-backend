@@ -1,5 +1,6 @@
 package se.jensenyh.javacourse.saltmerch.backend.controller;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +35,10 @@ public class CartController {
     }
 
     @DeleteMapping("/carts/{id}")
-    public Object deleteCartItems(@RequestParam("buyout") String buyout,@RequestBody CartItem item) {
+    public Object deleteCartItems(@RequestParam("buyout") @Nullable String buyout) {
         if ("true".equals(buyout)) {
-            return cartService.deleteAllItems();
-        }
+            cartService.deleteAllItems(false);
+        } else cartService.deleteAllItems(true);
         return null;
     }
 
