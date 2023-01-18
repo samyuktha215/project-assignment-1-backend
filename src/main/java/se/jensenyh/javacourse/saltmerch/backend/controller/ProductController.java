@@ -75,7 +75,28 @@ public ResponseEntity<Product> getProductById(@PathVariable("id") String id){
     }
 
 }*/
-@PostMapping("/products/jackets")
+@PostMapping("/products/{var}")
+public Object addingProducts(@PathVariable("var") String var,@RequestBody Product product){
+    switch(var){
+        case "hats":
+        case "jackets":
+        case "tshirts":
+        case "bags":
+            return productService.addProductAndProps(product,var);
+        default:
+            try{
+                int i= Integer.parseInt(var);
+                return  productService.getEntireProduct(i);
+            }catch(Exception e){
+                System.out.println("given string instead of integer");
+                return ResponseEntity.badRequest().body("your id is string so please give integer");
+            }
+
+
+    }
+
+}
+/*@PostMapping("/products/jackets")
 public ResponseEntity<Product> addJacket(@RequestBody Product product){
     productService.addProductAndProps(product, "jackets");
     return new ResponseEntity<>( product,HttpStatus.CREATED);
@@ -95,7 +116,7 @@ public ResponseEntity<Product> addBag(@RequestBody Product product) {
 public ResponseEntity<Product> addTshirts(@RequestBody Product product) {
     productService.addProductAndProps(product, "tshirts");
     return new ResponseEntity<>(product, HttpStatus.CREATED);
-}
+}*/
 @DeleteMapping("/products/{id}")
 public ResponseEntity<Integer> deleteProduct(@PathVariable("id") Integer id)
     {
