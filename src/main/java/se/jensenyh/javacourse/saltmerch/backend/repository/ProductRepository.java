@@ -48,7 +48,7 @@ public class ProductRepository
         // todo: create a RowMapper for the Product class,
         //  using the constructor that takes id, category, title, description, and previewImage
         // NOTE: have in mind that the column name that corresponds to previewImage is preview_image
-       // RowMapper<Product> rm = null;// <<<< todo: CREATE RowMapper HERE
+       // RowMapper<Product> rm = null; <<<< todo: CREATE RowMapper HERE
         RowMapper<Product> rm = (rs, rowNum) -> new Product(
                 rs.getInt("id"),
                 rs.getString("category"),

@@ -22,7 +22,26 @@ public  ResponseEntity<List<Product>> getProducts(){
     List<Product>productList =productService.getProducts();
     return ResponseEntity.ok(productList);
 }
-@GetMapping("products/hats")
+@GetMapping("products/{var}")
+public Object getCategories(@PathVariable("var") String var){
+    switch (var){
+        case "hats":
+        case "jackets":
+        case "tshirts":
+        case "bags":
+            return productService.getProductsOfCategory(var);
+        default:
+            try{
+                int i= Integer.parseInt(var);
+                return  productService.getEntireProduct(i);
+            }catch(Exception e){
+                System.out.println("given string instead of integer");
+                return ResponseEntity.badRequest().body("your id is string so please give integer");
+            }
+
+    }
+}
+/*@GetMapping("products/hats")
 public ResponseEntity getHats() {
     List<Product>productList=productService.getProductsOfCategory("hats");
     return  ResponseEntity.ok(productList);
@@ -45,10 +64,17 @@ public ResponseEntity getTshirts() {
 }
 
 @GetMapping("/products/{id}")
-public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id){
-    Product product= productService.getEntireProduct(id);
-    return ResponseEntity.ok(product);
-}
+public ResponseEntity<Product> getProductById(@PathVariable("id") String id){
+    try{
+        int i= Integer.parseInt(id);
+        Product product= productService.getEntireProduct(i);
+        return ResponseEntity.ok(product);
+    }catch (Exception e) {
+        System.out.println("given string instead of number");
+        return ResponseEntity.badRequest().build();
+    }
+
+}*/
 @PostMapping("/products/jackets")
 public ResponseEntity<Product> addJacket(@RequestBody Product product){
     productService.addProductAndProps(product, "jackets");
