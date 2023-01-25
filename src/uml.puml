@@ -1,0 +1,39 @@
+@startuml
+class CartItem {
+   + productId: int;
+   + title: String;
+   + size: String;
+   + color: String;
+   + previewImage: String;
+   + quantity: String;
+   + CartItem()
+   + CartItem(productId, title, color, size, previewImage)
+   +CartItem(productId, title, color, size, previewImage, quantity) {
+    }
+
+class ColorVariant{
+    + colorName: String;
+    + images: ArrayList<String> ;
+    + sizes ArrayList<SizeContainer>;
+    + ColorVariant: ArrayList<SizeContainer>;
+    + ColorVariant(colorName, images: ArrayList, sizes: ArrayList)
+}
+class Product implements Serializable {
+    + id: int;
+    + category: String;
+    + title: String;
+    + description: String;
+    + previewImage: String;
+    + ArrayList<ColorVariant> colorVariants;
+    + Product()
+    + Product(id, category, title, description, previewImage)
+    + Product(id, category, title, description, colorVariants: ArrayList)
+ }
+class SizeContainer {
+   + size: String;
+   + stock: int;
+   + SizeContainer()
+   + SizeContainer(size, stock)
+    }
+    ColorVariant--SizeContainer
+@enduml

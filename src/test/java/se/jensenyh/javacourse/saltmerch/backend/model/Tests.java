@@ -11,12 +11,12 @@ public class Tests {
     static final String description="This is some hat 1";
     static final String previewImage= "preview Image";
     @Test
-    public void productEmptyConstructorInitializesColorvariants(){
+    public void productEmptyConstructorInitializesColorVariants(){
         Product product=new Product();
          assertThat(product.id).isNotNull();
     }
     @Test
-    public void productConstructorInitializesColorvariantsAndSetsFields(){
+    public void productConstructorInitializesColorVariantsAndSetsFields(){
         Product product=new Product(1,"hats","Some Hat 1","This is some hat 1","preview Image");
         assertThat(product.id).isNotNull();
 

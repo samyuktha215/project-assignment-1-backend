@@ -1,6 +1,7 @@
 package se.jensenyh.javacourse.saltmerch.backend.IntegrationTests;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
